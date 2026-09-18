@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unslop"
+version = "0.1.0"
+description = "Polish AI-generated code to human quality"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "bandit>=1.7.0",
+]
+
+[project.scripts]
+unslop = "unslop.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["unslop*"]
+exclude = ["tests*", "examples*"]

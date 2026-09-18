@@ -1,0 +1,10 @@
+context-compiler>=0.2.0
+tree-sitter>=0.21.0
+tree-sitter-python>=0.21.0
+tree-sitter-typescript>=0.21.0
+bandit>=1.7.0
+
+[dev]
+pytest>=7.0
+black>=23.0
+ruff>=0.1.0

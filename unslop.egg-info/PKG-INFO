@@ -1,0 +1,87 @@
+Metadata-Version: 2.4
+Name: unslop
+Version: 0.1.0
+Summary: Polish AI-generated code to human quality
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: context-compiler>=0.2.0
+Requires-Dist: tree-sitter>=0.21.0
+Requires-Dist: tree-sitter-python>=0.21.0
+Requires-Dist: tree-sitter-typescript>=0.21.0
+Requires-Dist: bandit>=1.7.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: black>=23.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+
+# UNSLOP — Polish AI-Generated Code to Human Quality
+
+> "AI doesn't write bad code — it writes plausible code. The lines compile, the linter passes, the variable names look reasonable, and on a fast PR review it slides through."
+
+## The Problem
+
+AI-generated code has a distinct signature: it's **locally perfect and globally incoherent**. Humans are inconsistent in small ways but consistent in approach. AI is the exact opposite — eerily uniform line by line, wildly inconsistent in architecture.
+
+## The Goal
+
+Build a skill/extension that can automatically detect and fix the telltale signs of AI-generated code, polishing it toward the quality and coherence that human developers pride themselves on writing.
+
+## What We're Building
+
+A code analysis and refinement tool that:
+
+1. **Detects** AI-generated code patterns (the 9 tells)
+2. **Scores** code on a "slop meter" — how much it looks AI-generated
+3. **Refines** code to match human quality standards
+4. **Educates** developers on what makes code look AI-generated
+
+## Directory Structure
+
+```
+unslop/
+├── README.md           # This file
+├── RESEARCH.md         # Comprehensive research synthesis
+├── SKILL.md            # The pi skill definition (TBD)
+├── design/             # Design documents
+│   └── architecture.md # Tool architecture (TBD)
+├── rules/              # Detection and fix rules
+│   ├── naming.md       # Generic naming detection
+│   ├── dead-code.md    # Dead code detection
+│   ├── comments.md     # Verbose comment detection
+│   ├── error-handling.md # Error handling gaps
+│   └── patterns.md     # Pattern inconsistency detection
+└── examples/           # Before/after examples
+    └── python/         # Python examples
+```
+
+## Key Research Findings
+
+### The 9 Tells
+1. Comments that explain the obvious, uniformly
+2. The same problem solved five different ways
+3. Dependency bloat
+4. Generic naming (`data2`, `result_final`)
+5. Tests that don't test
+6. TODO blocks in production
+7. Dead code that looks load-bearing
+8. Error handling that swallows everything
+9. Locally valid, globally incoherent
+
+### The Volume-Quality Inverse Law
+Code volume is a near-perfect predictor of structural degradation. As models become more capable, they generate increasingly bloated and coupled code.
+
+### The Modular Mirage
+Agents achieve superficial structural modularity (file separation) but fail to create semantic cohesion.
+
+## Priority Fixes (80/20 Rule)
+
+The 20% of tells that cause 80% of the "this looks AI-generated" feeling:
+
+1. **Generic naming** — Replace `data2`, `handleClick3` with domain-specific names
+2. **Dead code** — Remove unused imports, unreachable branches
+3. **Pattern inconsistency** — Align with existing codebase patterns
+4. **TODO artifacts** — Remove or concretely implement TODO blocks
+
+## References
+
+See `RESEARCH.md` for the full research synthesis from 10 academic and industry sources.
