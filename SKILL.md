@@ -11,18 +11,6 @@ description: >
 
 > Detect and fix the telltale signs of AI-generated code. Turn plausible code into polished code.
 
-## Trigger
-
-When the user asks to:
-- "unslop this code"
-- "polish this AI-generated code"
-- "make this code look more human"
-- "review this for AI slop"
-- "slop score this file"
-- "refine this PR"
-- "clean up this generated code"
-- "unslop the codebase" (holistic analysis)
-
 ## What It Does
 
 1. **Analyzes** the provided code for AI-generated code patterns (the 13 tells)

@@ -60,7 +60,7 @@ unslop fix /path/to/repo --run-tests              # Run tests after fixes
 unslop fix /path/to/repo --threshold 40           # Target score
 unslop fix /path/to/repo --min-confidence 80      # Min confidence %
 unslop fix /path/to/repo --max-iterations 10      # Max loop iterations
-unslop fix /path/to/repo --test-cmd "pytest"      # Custom test command
+unslop fix /path/to/repo --test-cmd "pytest"      # Custom command (quoted args work; shell operators are not interpreted)
 unslop fix /path/to/repo --severity high,medium   # Filter by severity
 unslop fix /path/to/repo --create-pr              # Create GitHub PR
 unslop fix /path/to/repo --create-pr --pr-title "Fix AI tells"

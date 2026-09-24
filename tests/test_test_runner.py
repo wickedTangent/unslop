@@ -118,6 +118,30 @@ class TestRunTests:
         result = run_tests(tmp_path, test_cmd="echo 'test passed'")
         assert result.passed is True
         assert result.command == "echo 'test passed'"
+        assert result.stdout.strip() == "test passed"
+
+    def test_run_tests_does_not_interpret_shell_operators(self, tmp_path: Path) -> None:
+        """Pass shell operators as arguments rather than executing them."""
+        marker = tmp_path / "should_not_exist"
+        result = run_tests(tmp_path, test_cmd=f"echo safe; touch {marker}")
+
+        assert result.passed is True
+        assert not marker.exists()
+        assert result.stdout.strip() == f"safe; touch {marker}"
+
+    def test_run_tests_empty_override(self, tmp_path: Path) -> None:
+        """Return a useful error for a blank command."""
+        result = run_tests(tmp_path, test_cmd="  ")
+
+        assert result.passed is False
+        assert "No test command specified" in result.stderr
+
+    def test_run_tests_malformed_quoted_override(self, tmp_path: Path) -> None:
+        """Return a useful error for an unmatched quote."""
+        result = run_tests(tmp_path, test_cmd="echo 'unfinished")
+
+        assert result.passed is False
+        assert "Invalid test command" in result.stderr
 
     def test_run_tests_command_not_found(self, tmp_path: Path) -> None:
         """Return failure when command not found."""

@@ -7,6 +7,7 @@ test command with a configurable timeout.
 from __future__ import annotations
 
 import os
+import shlex
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -112,18 +113,41 @@ def run_tests(
                 stderr="No test framework detected. Use --test-cmd to specify a command.",
             )
 
+    if not test_cmd.strip():
+        return TestResult(
+            passed=False,
+            command=test_cmd,
+            stderr="No test command specified. Use --test-cmd to specify a command.",
+        )
+
+    try:
+        command_args = shlex.split(test_cmd)
+    except ValueError as exc:
+        return TestResult(
+            passed=False,
+            command=test_cmd,
+            stderr=f"Invalid test command: {exc}",
+        )
+
+    if not command_args:
+        return TestResult(
+            passed=False,
+            command=test_cmd,
+            stderr="No test command specified. Use --test-cmd to specify a command.",
+        )
+
     env = os.environ.copy()
     env["CI"] = "1"  # Ensure CI-friendly output (no colors, etc.)
 
     try:
         result = subprocess.run(
-            test_cmd,
+            command_args,
             cwd=str(repo_root),
             capture_output=True,
             text=True,
             timeout=timeout,
             env=env,
-            shell=True,
+            shell=False,
         )
         return TestResult(
             passed=result.returncode == 0,

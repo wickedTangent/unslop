@@ -37,10 +37,7 @@ python -m unslop --verbose /path/to/file.py
 
 ### When Claude Code generates code:
 
-1. Always run unslop on generated code before suggesting it for review
-2. Apply fixes automatically
-3. Report the slop score to the user
-4. If the score is above the threshold, suggest improvements
+Follow the standard workflow (see "Workflow Integration" below): unslop → auto-fix → report score → suggest improvements if above threshold.
 
 ### Example prompt for Claude Code:
 
@@ -63,13 +60,11 @@ unslop:
 
 ### When Codex generates code:
 
-1. Generate the code
-2. Run unslop
-3. Apply fixes
-4. Retest
-5. If slop score is acceptable, proceed to PR
+Follow the standard workflow (see "Workflow Integration" below), then proceed to PR.
 
 ## Workflow Integration
+
+The canonical sequence, applies to both Claude Code and Codex:
 
 ```
 1. Code generation

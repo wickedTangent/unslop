@@ -1,2 +1,0 @@
-[console_scripts]
-unslop = unslop.cli:main

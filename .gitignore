@@ -24,3 +24,8 @@ unslopped.json
 
 # OS
 .DS_Store
+
+# Environment / secrets
+.env
+.env.*
+.dev.vars

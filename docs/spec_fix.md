@@ -39,6 +39,12 @@ unslop fix --repo . --threshold 40 --run-tests --max-iterations 15
 unslop fix --repo . --threshold 40 --run-tests --report unslopped.md
 ```
 
+`--test-cmd` is split into executable arguments without invoking a shell. Quoting
+can group arguments containing spaces, but shell operators such as pipes,
+redirects, command chaining, and variable expansion are not interpreted. For a
+command that needs shell syntax, invoke a shell explicitly (for example,
+`--test-cmd "sh -c 'pytest tests/ | tee test.log'"`) or use an executable script.
+
 ## Command Flags
 
 | Flag | Default | Description |
@@ -47,7 +53,7 @@ unslop fix --repo . --threshold 40 --run-tests --report unslopped.md
 | `--threshold` | `40` | Target score to reach (lower is better) |
 | `--dry-run` | `false` | Show changes without applying |
 | `--run-tests` | `false` | Run test suite after each fix iteration |
-| `--test-cmd` | auto-detect | Custom test command (auto-detects pytest, npm test, flutter test, etc.) |
+| `--test-cmd` | auto-detect | Custom executable and arguments; shell syntax is not interpreted (auto-detects pytest, npm test, flutter test, etc.) |
 | `--create-pr` | `false` | Create a PR with the cleaned files |
 | `--branch` | `unslopped` | Branch name for PR |
 | `--max-iterations` | `10` | Maximum scan→fix→test loop iterations |
